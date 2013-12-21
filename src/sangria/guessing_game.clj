@@ -10,10 +10,11 @@
     [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]))
 
 (defn ask [[[verb pronoun] answer]]
-  (do
-    (println (clojure.string/capitalize verb))
-    (println (str pronoun " _ ?"))
-    (let [user-answer (clojure.string/trim (read-line))]
-      (if (= user-answer answer)
-        (println "Bien! :)")
-        (println "No! :(")))))
+  (println (clojure.string/capitalize verb))
+  (println (str pronoun " ____ ?"))
+  (let [user-answer (clojure.string/trim (read-line))]
+    (if (= user-answer answer)
+      (println "Bien! :)")
+      (do
+        (println "No! :(")
+        (println "La buena respuesta es:" answer)))))
