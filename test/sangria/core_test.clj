@@ -6,7 +6,8 @@
   (testing "groups"
     (is (= (find-group "hablar") 0))
     (is (= (find-group "beber") 1))
-    (is (= (find-group "vivir") 2))))
+    (is (= (find-group "vivir") 2)
+    (is (= (find-group "llamarse") 0)))))
 
 (deftest root-test
   (testing "root"
@@ -18,4 +19,5 @@
   (testing "conjugation"
     (is (= (conjugate "hablar" 0) "hablo"))
     (is (= (conjugate "beber" 3) "bebemos"))
-    (is (= (conjugate "vivir" 4) "vivís"))))
+    (is (= (conjugate "vivir" 4) "vivís"))
+    (is (= (conjugate "llamarse" 4) "os llamáis"))))
