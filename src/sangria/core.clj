@@ -1,13 +1,16 @@
 (ns sangria.core
   (:gen-class))
 
-(def endings
-  [["o", "as", "a", "amos", "áis", "an"]
-   ["o", "es", "e", "emos", "éis", "en"]
-   ["o", "es", "e", "imos", "ís", "en"]])
-
 (def pronouns
-  ["me", "te", "se", "nos", "os", "se"])
+  ["yo" "tú" "él" "nosotros" "vosotros" "ellos"])
+
+(def endings
+  [["o" "as" "a" "amos" "áis" "an"]
+   ["o" "es" "e" "emos" "éis" "en"]
+   ["o" "es" "e" "imos"  "ís" "en"]])
+
+(def composite-pronouns
+  ["me" "te" "se" "nos" "os" "se"])
 
 (defn composite? [verb]
   (.endsWith verb "se"))
@@ -26,18 +29,18 @@
 (defn find-root [verb]
   (clojure.string/join (drop-last 2 verb)))
 
-(defn conjugate [verb pronoun]
+(defn conjugate [verb pronoun-idx]
   (if (composite? verb)
     (let [verb (decompose verb)
           root (find-root verb)
           group (find-group verb)]
       (str
-        (pronouns pronoun)
+        (composite-pronouns pronoun-idx)
         " "
         root
-        (get-in endings [group pronoun])))
+        (get-in endings [group pronoun-idx])))
     (let [root (find-root verb)
           group (find-group verb)]
       (str
         root
-        (get-in endings [group pronoun])))))
+        (get-in endings [group pronoun-idx])))))
