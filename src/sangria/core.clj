@@ -16,10 +16,12 @@
   (.endsWith verb "se"))
 
 (defn decompose [verb]
-  (clojure.string/join (drop-last 2 verb)))
+  (let [cut (- (.length verb) 2)]
+    (.substring verb 0 cut)))
 
 (defn find-group [verb]
-  (let [ending (clojure.string/join (take-last 2 verb))]
+  (let [start (- (.length verb) 2)
+        ending (.substring verb start)]
     (case ending
       "ar" 0
       "er" 1
@@ -27,7 +29,8 @@
       "se" (recur (decompose verb)))))
 
 (defn find-root [verb]
-  (clojure.string/join (drop-last 2 verb)))
+  (let [cut (- (.length verb) 2)]
+    (.substring verb 0 cut)))
 
 (defn conjugate [verb pronoun-idx]
   (if (composite? verb)
