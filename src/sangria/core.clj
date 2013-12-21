@@ -27,7 +27,7 @@
   (clojure.string/join (drop-last 2 verb)))
 
 (defn conjugate [verb pronoun]
-  (if-let [composite? (composite? verb)]
+  (if (composite? verb)
     (let [verb (decompose verb)
           root (find-root verb)
           group (find-group verb)]
