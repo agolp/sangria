@@ -1,7 +1,7 @@
 (ns sangria.guessing-game
   (:use sangria.core))
 
-(def some-verbs ["escuchar" "hablar" "trabajar" "cantar" "bailar" "beber" "llamarse" "leer" "comer" "poner" "vivir" "sentir" "morir" "salir"])
+(def some-verbs ["escuchar" "hablar" "trabajar" "cantar" "bailar" "beber" "llamarse" "leer" "comer" "vivir" "sentir" "morir" "salir"])
 
 (defn rand-question
   "Randomly returns a question."
