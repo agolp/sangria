@@ -3,20 +3,18 @@
 
 (def some-verbs ["escuchar" "hablar" "trabajar" "cantar" "bailar" "beber" "llamarse" "leer" "comer" "poner" "vivir" "sentir" "morir" "salir"])
 
-(defn random-questions
-  "Returns a lazy seq of random questions"
-  []
-  (lazy-seq
-    (let [rand-verb (rand-nth some-verbs)
-          rand-pronoun-idx (rand-int (count pronouns))
-          rand-pronoun (pronouns rand-pronoun-idx)]
-       (cons [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]
-              (random-questions)))))
-
 (defn get-question
   "Randomly returns a question."
   []
-  (first (random-questions)))
+  (let [rand-verb (rand-nth some-verbs)
+        rand-pronoun-idx (rand-int (count pronouns))
+        rand-pronoun (pronouns rand-pronoun-idx)]
+    [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]))
+
+(defn random-questions
+  "Returns a lazy seq of random questions"
+  []
+  (repeatedly get-question))
 
 (defn ask
   "Asks given question. Returns true if the given answer was correct, false otherwise.
