@@ -3,18 +3,41 @@
 
 (def some-verbs ["escuchar" "hablar" "trabajar" "cantar" "bailar" "beber" "llamarse" "leer" "comer" "poner" "vivir" "sentir" "morir" "salir"])
 
-(defn get-question []
-  (let [rand-verb (rand-nth some-verbs)
-        rand-pronoun-idx (rand-int (count pronouns))
-        rand-pronoun (pronouns rand-pronoun-idx)]
-    [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]))
+(defn random-questions
+  "Returns a lazy seq of random questions"
+  []
+  (lazy-seq
+    (let [rand-verb (rand-nth some-verbs)
+          rand-pronoun-idx (rand-int (count pronouns))
+          rand-pronoun (pronouns rand-pronoun-idx)]
+       (cons [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]
+              (random-questions)))))
 
-(defn ask [[[verb pronoun] answer]]
+(defn get-question
+  "Randomly returns a question."
+  []
+  (first (random-questions)))
+
+(defn ask
+  "Asks given question.
+
+  Usage: (ask (get-question))"
+  [[[verb pronoun] answer]]
   (println (clojure.string/capitalize verb))
   (println (str pronoun " ____ ?"))
-  (let [user-answer (clojure.string/trim (read-line))]
+  (let [user-answer (->
+                       (read-line)
+                       (clojure.string/trim)
+                       (clojure.string/lower-case))]
     (if (= user-answer answer)
       (println "Bien! :)")
       (do
         (println "No! :(")
         (println "La buena respuesta es:" answer)))))
+
+(defn ask-questions
+  "Asks given questions.
+
+  Usage: (ask-questions (take 5 (random-questions)))"
+  [questions]
+  (dorun (map ask questions)))
