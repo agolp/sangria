@@ -3,7 +3,7 @@
 
 (def some-verbs ["escuchar" "hablar" "trabajar" "cantar" "bailar" "beber" "llamarse" "leer" "comer" "poner" "vivir" "sentir" "morir" "salir"])
 
-(defn get-question
+(defn rand-question
   "Randomly returns a question."
   []
   (let [rand-verb (rand-nth some-verbs)
@@ -11,15 +11,15 @@
         rand-pronoun (pronouns rand-pronoun-idx)]
     [[rand-verb rand-pronoun] (conjugate rand-verb rand-pronoun-idx)]))
 
-(defn random-questions
-  "Returns a lazy seq of random questions"
+(defn rand-questions
+  "Returns a lazy seq of random questions."
   []
-  (repeatedly get-question))
+  (repeatedly rand-question))
 
 (defn ask
-  "Asks given question. Returns true if the given answer was correct, false otherwise.
+  "Asks given question. Returns true if the user answer was correct, false otherwise.
 
-  Usage: (ask (get-question))"
+  Usage: (ask (rand-question))"
   [[[verb pronoun] answer]]
   (println (clojure.string/capitalize verb))
   (println (clojure.string/capitalize pronoun) "____ ?")
@@ -41,7 +41,7 @@
 (defn ask-questions
   "Asks given questions. Returns the total number of correct answers.
 
-  Usage: (ask-questions (take 5 (random-questions)))"
+  Usage: (ask-questions (take 5 (rand-questions)))"
   [questions]
   (->>
    (map ask questions)
