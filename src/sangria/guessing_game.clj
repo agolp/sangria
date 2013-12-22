@@ -19,7 +19,7 @@
   (first (random-questions)))
 
 (defn ask
-  "Asks given question.
+  "Asks given question. Returns true if the given answer was correct, false otherwise.
 
   Usage: (ask (get-question))"
   [[[verb pronoun] answer]]
@@ -30,14 +30,22 @@
                        (clojure.string/trim)
                        (clojure.string/lower-case))]
     (if (= user-answer answer)
-      (println "Bien! :)")
+      (do
+        (println "Bien! :)")
+        (println)
+        true)
       (do
         (println "No! :(")
-        (println "La buena respuesta es:" answer)))))
+        (println "La buena respuesta es:" answer)
+        (println)
+        false))))
 
 (defn ask-questions
-  "Asks given questions.
+  "Asks given questions. Returns the total number of correct answers.
 
   Usage: (ask-questions (take 5 (random-questions)))"
   [questions]
-  (dorun (map ask questions)))
+  (->>
+   (map ask questions)
+   (filter identity)
+   (count)))
