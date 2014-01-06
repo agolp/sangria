@@ -41,16 +41,16 @@
   (if-let [irregular-verb (get irregular-verbs verb)]
     (get irregular-verb pronoun-idx)
     (if (composite? verb)
-    (let [verb (decompose verb)
-          root (find-root verb)
-          group (find-group verb)]
-      (str
-        (composite-pronouns pronoun-idx)
-        " "
-        root
-        (get-in endings [group pronoun-idx])))
-    (let [root (find-root verb)
-          group (find-group verb)]
-      (str
-        root
-        (get-in endings [group pronoun-idx]))))))
+      (let [verb (decompose verb)
+            root (find-root verb)
+            group (find-group verb)]
+        (str
+          (composite-pronouns pronoun-idx)
+          " "
+          root
+          (get-in endings [group pronoun-idx])))
+      (let [root (find-root verb)
+            group (find-group verb)]
+        (str
+          root
+          (get-in endings [group pronoun-idx]))))))
