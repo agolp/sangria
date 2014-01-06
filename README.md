@@ -4,5 +4,5 @@ Primitive Spanish conjugator
 
 ## TODO
 
-- Handle irregular verbs
+- Handle (more) irregular verbs
 - Handle different tenses

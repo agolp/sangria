@@ -22,7 +22,7 @@
   Usage: (ask (rand-question))"
   [[[verb pronoun] answer]]
   (println (clojure.string/capitalize verb))
-  (println (clojure.string/capitalize pronoun) "____ ?")
+  (println pronoun "____ ?")
   (let [user-answer (->
                        (read-line)
                        (clojure.string/trim)

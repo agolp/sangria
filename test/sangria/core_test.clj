@@ -20,4 +20,9 @@
     (is (= (conjugate "hablar" 0) "hablo"))
     (is (= (conjugate "beber" 3) "bebemos"))
     (is (= (conjugate "vivir" 4) "vivís"))
-    (is (= (conjugate "llamarse" 4) "os llamáis"))))
+    (testing "composite verbs"
+      (is (= (conjugate "llamarse" 4) "os llamáis")))
+    (testing "irregular verbs"
+      (is (= (conjugate "ser" 1) "eres"))
+      (is (= (conjugate "tener" 0) "tengo"))
+      (is (= (conjugate "estar" 2) "está")))))
