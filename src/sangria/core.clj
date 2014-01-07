@@ -1,5 +1,4 @@
-(ns sangria.core
-  (:use clojure.pprint))
+(ns sangria.core)
 
 (def pronouns
   ["yo" "tú" "él" "nosotros" "vosotros" "ellos"])
@@ -44,9 +43,9 @@
       (let [verb (decompose verb)
             root (find-root verb)
             group (find-group verb)]
-        (str
+        (format 
+          "%s %s%s"
           (composite-pronouns pronoun-idx)
-          " "
           root
           (get-in endings [group pronoun-idx])))
       (let [root (find-root verb)
